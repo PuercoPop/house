@@ -11,6 +11,7 @@
                "cl-ppcre"
                "optima"
                "cl-json"
+               "quri"
                "split-sequence"
 	       "session-token"
                "trivial-features")
