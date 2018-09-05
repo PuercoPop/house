@@ -161,7 +161,7 @@ parameters with a lower priority can refer to parameters of a higher priority.")
 	 (cl-fad:walk-directory
 	  path
 	  (lambda (fname)
-	    (define-file-handler fname :stem-from (or stem-from (format nil "~a" path)) :method method))))
+	    (define-file-handler fname :stem-from (or stem-from (format nil "~A" path)) :method method))))
 	((cl-fad:file-exists-p path)
 	 (insert-handler!
 	  (cons method (process-uri (path->uri path :stem-from stem-from)))

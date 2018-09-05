@@ -106,9 +106,9 @@ test=post
     (define-closing-handler (test :content-type "text/plain") ()
       "Hello!")
     (define-closing-handler (arg-test :content-type "text/plain") ((num :integer) (key :keyword) (num-list :list-of-integer))
-      (format nil "~{~s~^ ~}" (list num key num-list)))
+      (format nil "~{~S~^ ~}" (list num key num-list)))
     (define-closing-handler (arg-test-two :content-type "text/plain") ((a :string) b (key-list :list-of-keyword) (json :json))
-      (format nil "~{~s~^ ~}" (list a b key-list json)))
+      (format nil "~{~S~^ ~}" (list a b key-list json)))
     (unwind-protect
 	 (labels ((parse-res (res)
 		    (destructuring-bind (hdr bdy) (cl-ppcre:split "\\r\\n\\r\\n" res)

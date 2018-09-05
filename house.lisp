@@ -172,7 +172,7 @@
   (values))
 
 (defmethod write! ((res sse) (stream stream))
-  (format stream "~@[id: ~a~%~]~@[event: ~a~%~]~@[retry: ~a~%~]data: ~a~%~%"
+  (format stream "~@[id: ~A~%~]~@[event: ~A~%~]~@[retry: ~A~%~]data: ~A~%~%"
 	  (id res) (event res) (retry res) (data res)))
 
 (defmethod error! ((err response) (sock usocket) &optional instance)

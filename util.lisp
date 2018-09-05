@@ -4,7 +4,7 @@
   (split-sequence:split-sequence elem seq :remove-empty-subseqs t))
 
 (defun debug! (&optional (stream *standard-output*))
-  (flet ((dbg (label &rest msg) (format stream ">>>> ~a~%~{~s~%----------~%~}~%" label msg)))
+  (flet ((dbg (label &rest msg) (format stream ">>>> ~A~%~{~S~%----------~%~}~%" label msg)))
     (defmethod process-ready :after ((sock stream-server-usocket) conns)
 	       (dbg "New listener..." sock
 		    "CONNECTIONS: " (alexandria:hash-table-keys conns)))
@@ -78,7 +78,7 @@
    'string))
 
 (defmethod path->uri ((path pathname) &key stem-from)
-  (format nil "/~{~a/~}~a~@[.~a~]"
+  (format nil "/~{~A/~}~A~@[.~A~]"
 	  (if stem-from
 	      (member stem-from (cdr (pathname-directory path)) :test #'string=)
 	      (cdr (pathname-directory path)))

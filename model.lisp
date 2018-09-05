@@ -3,7 +3,7 @@
 (define-condition http-assertion-error (error)
   ((assertion :initarg :assertion :initform nil :reader assertion))
   (:report (lambda (condition stream)
-	     (format stream "Failed assertions '~s'"
+	     (format stream "Failed assertions '~S'"
 		     (assertion condition)))))
 
 (defmacro assert-http (assertion)
