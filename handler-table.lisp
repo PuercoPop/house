@@ -8,11 +8,11 @@
   (vars (make-hash-table)))
 
 (defun any-vars? (trie)
-  (> (hash-table-count (trie-vars trie)) 0))
+  (plusp (hash-table-count (trie-vars trie))))
 
 (defun path-var? (str)
   (and (stringp str)
-       (> (length str) 0)
+       (plusp (length str))
        (eql #\- (char str 0))))
 
 (defun var-key (str)
