@@ -4,7 +4,6 @@
   :license "AGPL3"
   :serial t
   :depends-on ("alexandria"
-	       "anaphora"
 	       "bordeaux-threads"
                "usocket"
                "flexi-streams"

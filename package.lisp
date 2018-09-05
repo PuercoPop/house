@@ -2,17 +2,10 @@
   (:use #:cl
         #:optima
         #:cl-ppcre
-        #:usocket)
-  (:import-from #:alexandria
-                #:starts-with-subseq
-                #:with-gensyms)
+        #:usocket
+        #:alexandria)
   (:import-from #:flexi-streams
                 #:octet)
-  (:import-from #:anaphora
-                #:aif
-                #:awhen
-                #:aand
-                #:it)
   (:export #:define-handler
            #:define-json-handler
 

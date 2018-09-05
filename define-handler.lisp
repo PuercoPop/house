@@ -59,9 +59,10 @@ parameters with a lower priority can refer to parameters of a higher priority.")
 		     0)))))
 
 (defun arg-exp (arg-sym)
-  `(aif (cdr (assoc ,(->keyword arg-sym) (parameters request)))
-	(uri-decode it)
-	(error (make-instance 'http-assertion-error :assertion ',arg-sym))))
+  (with-gensyms (argument)
+    `(if-let (,argument §(cdr (assoc ,(->keyword arg-sym) (parameters request))))
+       (uri-decode ,argument)
+       (error (make-instance 'http-assertion-error :assertion ',arg-sym)))))
 
 (defun arguments (args body)
   (loop with res = body
@@ -73,7 +74,8 @@ parameters with a lower priority can refer to parameters of a higher priority.")
 	  ((list* arg-sym type restrictions)
 	   (setf res
 		 `(let ((,arg-sym ,(or (type-expression (arg-exp arg-sym) type) (arg-exp arg-sym))))
-		    ,@(awhen (type-assertion arg-sym type) `((assert-http ,it)))
+		    ,@(when-let (assertion (type-assertion arg-sym type))
+                        `((assert-http ,assertion)))
 		    ,@(loop for r in restrictions collect `(assert-http ,r))
 		    ,res))))
      finally (return res)))

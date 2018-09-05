@@ -119,6 +119,6 @@
     ("xml" . "application/xml")))
 
 (defmethod path->mimetype ((path pathname))
-  (aif (cdr (assoc (pathname-type path) *mimetype-table* :test #'string=))
-       it
-       "text/plain"))
+  (if-let (mimetype (cdr (assoc (pathname-type path) *mimetype-table* :test #'string=)))
+    mimetype
+    "text/plain"))

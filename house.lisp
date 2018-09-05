@@ -154,21 +154,21 @@
 		name '("Content-Type" "Set-Cookie" "Location" "Connection" "Expires" "Content-Length")
 		:test-not #'string/=))
      do (write-ln stream name ": " value))
-  (awhen (cookie res)
+  (when-let (cookie (cookie res))
     (if (null *cookie-domains*)
-	(write-ln stream "Set-Cookie: name=" it)
-	(loop for d in *cookie-domains*
-	   do (write-ln stream "Set-Cookie: name=" it "; domain=" d))))
-  (awhen (location res)
-    (write-ln stream "Location: " it))
+	(write-ln stream "Set-Cookie: name=" cookie)
+	(loop :for domain :in *cookie-domains*
+              :do (write-ln stream "Set-Cookie: name=" cookie "; domain=" domain))))
+  (when-let (location (location res))
+    (write-ln stream "Location: " location))
   (when (keep-alive? res)
     (write-ln stream "Connection: keep-alive")
     (write-ln stream "Expires: Thu, 01 Jan 1970 00:00:01 GMT"))
-  (awhen (body res)
-    (write-ln stream "Content-Length: " (write-to-string (length it)))
+  (when-let (body (body res))
+    (write-ln stream "Content-Length: " (write-to-string (length body)))
     #-windows(crlf stream)
     #+windows(format stream "~%")
-    (write-ln stream it))
+    (write-ln stream body))
   (values))
 
 (defmethod write! ((res sse) (stream stream))
@@ -190,14 +190,14 @@
   (make-instance 'sse :data data :id id :event event :retry retry))
 
 (defmethod publish! ((channel symbol) (message sse))
-  (awhen (lookup channel *channels*)
+  (when-let (channel (lookup channel *channels*))
     (setf (lookup channel *channels*)
-	  (loop for sock in it
-	     when (ignore-errors
-		    (write! message (flex-stream sock))
-		    (force-output (socket-stream sock))
-		    sock)
-	     collect it))))
+	  (loop :for sock :in channel
+                :when (ignore-errors
+                       (write! message (flex-stream sock))
+                       (force-output (socket-stream sock))
+                       sock)
+	     :collect channel))))
 
 (defmethod publish! ((channel symbol) (message string))
   (publish! channel (make-sse message)))

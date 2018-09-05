@@ -31,10 +31,10 @@
   (> (- (get-universal-time) (slot-value sess 'last-poked)) +max-session-idle+))
 
 (defun get-session! (token)
-  (awhen (gethash token *sessions*)
-    (if (idling? it)
-	(progn (remhash token *sessions*) nil)
-	(poke! it))))
+  (when-let (session (gethash token *sessions*))
+    (if (idling? session)
+	(and (remhash token *sessions*) nil)
+	(poke! session))))
 
 (defun clean-sessions! ()
   (loop for k being the hash-keys of *sessions*
