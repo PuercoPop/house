@@ -1,4 +1,6 @@
-(in-package :house)
+(in-package #:house)
+(use-package #:lisp-unit)
+
 
 (setf *print-failures* t
       *print-summary* t
