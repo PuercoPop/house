@@ -1,4 +1,4 @@
-(in-package :house)
+(in-package #:house)
 
 (define-condition http-assertion-error (error)
   ((assertion :initarg :assertion :initform nil :reader assertion))

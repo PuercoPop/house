@@ -1,4 +1,4 @@
-(in-package :house)
+(in-package #:house)
 
 (defun split-at (elem seq)
   (split-sequence:split-sequence elem seq :remove-empty-subseqs t))

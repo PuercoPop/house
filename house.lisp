@@ -1,5 +1,4 @@
-;; house.lisp
-(in-package :house)
+(in-package #:house)
 
 ;;;;;;;;;; System tables
 (defparameter *channels* (make-hash-table))

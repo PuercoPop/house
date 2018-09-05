@@ -3,27 +3,50 @@
         #:optima
         #:cl-ppcre
         #:usocket)
-  (:import-from #:alexandria :starts-with-subseq :with-gensyms)
-  (:import-from #:flexi-streams :octet)
-  (:import-from #:anaphora :aif :awhen :aand :it)
-  (:export
-   :define-handler
-   :define-json-handler
+  (:import-from #:alexandria
+                #:starts-with-subseq
+                #:with-gensyms)
+  (:import-from #:flexi-streams
+                #:octet)
+  (:import-from #:anaphora
+                #:aif
+                #:awhen
+                #:aand
+                #:it)
+  (:export #:define-handler
+           #:define-json-handler
 
-   :define-redirect-handler :redirect!
-   :define-file-handler
+           #:define-redirect-handler
+           #:redirect!
+           #:define-file-handler
 
-   :define-http-type :parameter :restrictions
+           #:define-http-type
+           #:parameter
+           #:restrictions
 
-   :request :resource :headers :session-tokens :parameters
+           #:request
+           #:resource
+           #:headers
+           #:session-tokens
+           #:parameters
 
-   :assert-http
-   :root :sock :session :parameters
-   :new-session! :new-session-hook! :clear-session-hooks! :get-session! :lookup :path->uri
-   :subscribe! :publish! :make-sse
-   :start))
+           #:assert-http
+           #:root
+           #:sock
+           #:session
+           #:parameters
+           #:new-session!
+           #:new-session-hook!
+           #:clear-session-hooks!
+           #:get-session!
+           #:lookup
+           #:path->uri
+           #:subscribe!
+           #:publish!
+           #:make-sse
+           #:start))
 
-(in-package :house)
+(in-package #:house)
 
 (declaim (inline crlf write-ln idling? flex-stream))
 
